@@ -162,3 +162,38 @@ h1 {
     padding: 10px;
     border-radius: 5px;
 }
+
+.media_container {
+    margin: auto;
+    width: 85%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-top: 30px;
+}
+
+.media_container img {
+    width: 350px;
+    height: 300px;
+}
+
+.media_container article {
+    margin-bottom: 30px;
+    width: 30%;
+    color: #901C1C;
+    font-size: 18px;
+}
+
+.media_description {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.media_description button {
+    border: none;
+    background: none;
+    color: #901C1C;
+    font-size: 18px;
+    font-weight: bold;
+}
