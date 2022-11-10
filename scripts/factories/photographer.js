@@ -6,6 +6,7 @@ function photographerFactory(data) {
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
 
+        //Créer le header de la card + lien
         const linkCard = document.createElement( 'a')
         linkCard.setAttribute("href", `photographer.html?id=${id}`)
         linkCard.setAttribute("aria-label", `Lien cliquable pour se rendre sur le profil de ${name}`)

@@ -12,7 +12,7 @@
 html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select{margin:0}html{box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}img,video{height:auto;max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
 
 /* -----------------------------------------
-                CSS
+               GENERAL CSS
 ----------------------------------------- */
 
 
@@ -43,6 +43,10 @@ h1 {
     height: 50px;
     margin-left: 100px;
 }
+
+/* -----------------------------------------
+                INDEX CSS
+----------------------------------------- */
 
 .photographer_section {
     display: grid;
@@ -104,4 +108,57 @@ h1 {
 
 .header_card {
     text-align: center;
+}
+
+/* -----------------------------------------
+               PHOTOGRAPHER PAGE CSS
+----------------------------------------- */
+
+.photograph-header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.photograph-header img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    
+}
+
+.photograph-header h1 {
+    font-size: 64px;
+    
+}
+
+.photograph-header h3 {
+    font-size: 24px;
+    color: #901C1C;    
+}
+
+.photo_menu_container {
+    display: flex;
+    align-items: center;
+    padding-top: 30px;
+    margin-left: 100px;
+}
+
+
+.photo_menu_container p {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.photo_menu_container select {
+    margin-left: 15px;
+    border: none;
+    background-color: #901C1C;
+    color: white;
+    font-weight: bold;
+    width: 170px;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
 }

@@ -9,11 +9,21 @@
   </head>
   <body>
     <header  aria-label="En-tête du site">
-      <a href="index.html"><img src="assets/images/logo.png" class="logo" /></a>
+      <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Logo du site Fisheye"/></a>
     </header>
     <main id="main">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <div class="photograph_header_left"></div>
+        <button class="contact_button" onclick="displayModal()" aria-label="Bouton pour ouvrir le formulaire de contact.">Contactez-moi</button>
+        <div class="photograph_header_right"></div>
+      </div>
+      <div class="photo_menu_container">
+        <p>Trier Par :</p>
+        <select name="photo_menu" id="photo_menu">
+          <option selected>Popularité</option>
+          <option >Date</option>
+          <option>Titre</option>
+        </select>
       </div>
     </main>
     <div id="contact_modal">
