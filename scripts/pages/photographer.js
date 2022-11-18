@@ -61,6 +61,20 @@ function photographerFactory(data) {
             img.setAttribute("src", picture)
             img.setAttribute("alt", `${name}`);
 
+    //Creer la partie cadre tarif
+    const bottomInfos = document.querySelector('.tarif_container')
+        const tarifContainer = document.createElement('div');
+            tarifContainer.setAttribute("class", `tarifContainer`)
+
+        const tarifLike = document.createElement('p')
+            tarifLike.textContent = "297 081 ♥"
+
+            const tarifPrice = document.createElement('p')
+            tarifPrice.textContent =  `${price}€ / jour`
+
+    const contactPhotograph = document.querySelector(".contact_photograph")
+        contactPhotograph.textContent = `${name}`
+
 
     //Insere les éléments dans le DOM
 
@@ -69,6 +83,11 @@ function photographerFactory(data) {
     leftHeader.appendChild(p)
 
     rightHeader.appendChild(img)
+
+    tarifContainer.appendChild(tarifLike)
+    tarifContainer.appendChild(tarifPrice)
+    bottomInfos.appendChild(tarifContainer)
+
 }
 
 /* ----------------------------------------
@@ -99,10 +118,11 @@ function getMediabyId(){
 
 //Insère les médias dans le DOM
 function mediaFactory(data) {
-    console.log(data)
+    const lightbox = document.querySelector('#lightbox');
+    const images = document.querySelector("#lightbox-content img");
     const { date, likes, photographerId, image, price, title, video} = data;
     let media = image ? `assets/medias/${photographerId}/${image}` : null;
-    let mediaMp4 = `assets/${photographerId}/${video}`;
+    let mediaMp4 = video ? `assets/medias/${photographerId}/${video}` : null;
 
     //Sélectionne la div ou sera injecté les medias
     let mediaContainer = document.querySelector('.media_container')
@@ -111,10 +131,37 @@ function mediaFactory(data) {
 
     let divContainer = document.createElement('div')
 
-    //Permet de gérer Image ou Photo
+    //Permet de gérer Image ou Video
+    let aMedia = media ? document.createElement('a') : null
+        aMedia ?  aMedia.setAttribute("href", media) : null
+        aMedia ? aMedia.addEventListener("click", event => {
+            // On désactive le comportement des liens
+            event.preventDefault();
+
+
+
+            // On ajoute l'image du lien cliqué dans la modale
+            images.src = aMedia.href;
+
+            // On affiche la modale
+            lightbox.classList.add("show");
+        }) : null
+
     let mediaContent = media ? document.createElement('img') : null
         mediaContent ? mediaContent.setAttribute("src", media) : null
         mediaContent ? mediaContent.setAttribute("alt", `${title}`): null
+
+    let aMediaMp4 = mediaMp4 ? document.createElement('a') : null
+        mediaMp4 ? aMediaMp4.setAttribute("href", mediaMp4) : null
+
+    let mediaContentMp4 = mediaMp4 ? document.createElement('video') : null
+        mediaContentMp4 ? mediaContentMp4.setAttribute("width", "350") : null
+        mediaContentMp4 ? mediaContentMp4.setAttribute("height", "350"): null
+        mediaContentMp4 ? mediaContentMp4.setAttribute("controls", "controls"): null
+
+    let srcMp4 = mediaMp4 ? document.createElement('source') : null
+        srcMp4 ? srcMp4.setAttribute("src", mediaMp4) : null
+        srcMp4 ? srcMp4.setAttribute("type", `video/mp4`) : null
 
     let divDescription =  document.createElement('div')
         divDescription.setAttribute("class", `media_description`)
@@ -126,11 +173,18 @@ function mediaFactory(data) {
         like.textContent = `${likes}♥`;
 
     //Création de la div d'information
+
+
     divDescription.appendChild(mediaP)
     divDescription.appendChild(like)
 
+    mediaContentMp4 ? mediaContentMp4.appendChild(srcMp4) : null;
+    aMediaMp4 ? aMediaMp4.appendChild(mediaContentMp4) : null;
+    aMediaMp4 ? divContainer.appendChild( aMediaMp4) : null;
+
     //création de la div générale
-   mediaContent ? divContainer.appendChild(mediaContent) : null;
+   mediaContent ? aMedia.appendChild(mediaContent) : null;
+   aMedia ? divContainer.appendChild(aMedia) : null;
    divContainer.appendChild(divDescription)
 
    //finalisation des cards 
@@ -139,6 +193,42 @@ function mediaFactory(data) {
    return mediaContainer.appendChild(article)
 
 }
+
+/* ----------------------------------------
+    Function Modals
+---------------------------------------- */
+//Cible les formulaires
+const prenom = document.querySelector('#firstname');
+const nom = document.querySelector('#lastname');
+const email = document.querySelector('#email');
+const message = document.querySelector('#message');
+const submit = document.querySelector('#submit_button')
+
+let inputPrenom = "";
+let inputNom = "";
+let inputEmail = "";
+let inputMessage = "";
+
+
+
+prenom.addEventListener("change", () => {inputPrenom = prenom.value})
+nom.addEventListener("change", () => {inputNom = nom.value})
+email.addEventListener("change", () => {inputEmail = email.value})
+message.addEventListener("change", () => {inputMessage = message.value})
+submit.addEventListener("click", (e) => {
+
+    e.preventDefault();
+    let monContact = {
+        monPrenom: inputPrenom,
+        monNom: inputNom,
+        monEmail: inputEmail,
+        monMessage: inputMessage
+      };
+
+      
+    console.log(monContact)
+
+})
 
 /* ----------------------------------------
     Initialisation des fonctions

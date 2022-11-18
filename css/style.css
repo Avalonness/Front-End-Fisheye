@@ -19,6 +19,7 @@ html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,ifr
 body {
     font-family: "DM Sans", sans-serif;
     margin: 0;
+    position: relative;
 }
 
 
@@ -177,6 +178,10 @@ h1 {
     height: 300px;
 }
 
+.media_container video {
+    height: 300px;
+}
+
 .media_container article {
     margin-bottom: 30px;
     width: 30%;
@@ -197,3 +202,79 @@ h1 {
     font-size: 18px;
     font-weight: bold;
 }
+
+.tarifContainer {
+    display: flex;
+    justify-content: space-between;
+    background-color: #DB8876;
+    padding: 15px;
+    width: 250px;
+    position: fixed;
+    bottom: 0px;
+    right: 50px;
+    z-index: 2;
+}
+
+textarea {
+    border-radius: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+/* -----------------------------------------
+              LIGHTBOX
+----------------------------------------- */
+/* Modale */
+.lightbox{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    z-index: 3;
+}
+
+.lightbox.show{
+    display: initial;
+}
+
+.lightbox-content{
+    max-width: 100%;
+    height: 100vh;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.lightbox-content button {
+    background: none;
+    border: none;
+    color: #901C1C;
+    font-size: 50px;
+}
+
+.lightbox__right {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+}
+
+
+.lightbox-content img{
+    height: 100vh;
+}
+
+.close{
+    color: #901C1C;
+    position: absolute;
+    top: 0;
+}
+
+
+ 
