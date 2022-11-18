@@ -133,7 +133,7 @@ function mediaFactory(data) {
 
     //Permet de gérer Image ou Video
     let aMedia = media ? document.createElement('a') : null
-        aMedia ?  aMedia.setAttribute("href", media) : null
+        aMedia ? aMedia.setAttribute("href", media) : null
         aMedia ? aMedia.addEventListener("click", event => {
             // On désactive le comportement des liens
             event.preventDefault();
