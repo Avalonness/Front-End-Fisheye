@@ -64,14 +64,17 @@
 
     <div id="lightbox" class="lightbox">
       <div class="lightbox-content" id="lightbox-content">
-          <button aria-label="Boutton permettant de retourner à la photo précédente">&lt;</button>
+          <button id="prev" aria-label="Boutton permettant de retourner à la photo précédente">&lt;</button>
           <img src="" alt="">
           <div class="lightbox__right">
             <button class="close">&times;</button>
-            <button aria-label="Boutton permettant de passer à la photo suivante">&gt;</button>
+            <button id="next" aria-label="Boutton permettant de passer à la photo suivante">&gt;</button>
+          </div>
+          <div class="lightbox_title__container">
+            <p class="lightbox_title"></p>
           </div>
       </div>
-  </div>
+    </div>
 
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>

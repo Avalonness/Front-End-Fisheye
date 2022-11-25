@@ -14,6 +14,9 @@ const id = urlSearchParams.get("id");
 //Recherche le photographe
 let selectedPhotograph = {}
 let selectedPhotos = []
+let allLike = 0
+let globalLike = 0
+
 
 
 /* ----------------------------------------
@@ -67,7 +70,7 @@ function photographerFactory(data) {
             tarifContainer.setAttribute("class", `tarifContainer`)
 
         const tarifLike = document.createElement('p')
-            tarifLike.textContent = "297 081 ♥"
+            tarifLike.setAttribute("class", `likeNumber`)
 
             const tarifPrice = document.createElement('p')
             tarifPrice.textContent =  `${price}€ / jour`
@@ -122,6 +125,9 @@ function mediaFactory(data) {
     const lightbox = document.querySelector('#lightbox');
     const lightboxContent = document.querySelector("#lightbox-content")
     const images = document.querySelector("#lightbox-content img");
+    const prevBt = document.querySelector("#prev");
+
+    let liked = false;
 
     const { date, likes, photographerId, image, price, title, video} = data;
 
@@ -142,13 +148,13 @@ function mediaFactory(data) {
             // On désactive le comportement des liens
             event.preventDefault();
 
-            
-
             // On ajoute l'image du lien cliqué dans la modale
             images.src = aMedia.href;
+            document.querySelector('.lightbox_title').textContent = `${title}`
 
             // On affiche la modale
             lightbox.classList.add("show");
+            prevBt.focus()
         }) : null
 
     let mediaContent = media ? document.createElement('img') : null
@@ -174,14 +180,45 @@ function mediaFactory(data) {
     let mediaP = document.createElement('p')
         mediaP.textContent = `${title}`;
 
+    let likeContent = document.createElement('div')
+    likeContent.setAttribute("class", `like_container`)
+
     let like = document.createElement('button')
-        like.textContent = `${likes}♥`;
+        like.setAttribute("class", `like_button`)
+        like.textContent = `${likes}`;
+        //Ajoute chaque like dans un tableau
+        allLike = allLike + likes
+        console.log(allLike)
+        document.querySelector('.likeNumber').textContent = `${allLike}♥`
+        //logique des buttons like
+        like.addEventListener('click', e => {
+            e.preventDefault()
+            likeMedia = parseInt(like.textContent)
+
+            if(liked == false) {
+                likeMedia++
+                like.textContent = likeMedia;
+                liked = true
+            } else {
+                likeMedia--
+                like.textContent = likeMedia;
+                liked = false
+            }
+    
+    
+
+        });
+    
+    let likeIcon = document.createElement('p')
+        likeIcon.textContent = `♥`;
 
     //Création de la div d'information
 
+    likeContent.appendChild(like)
+    likeContent.appendChild(likeIcon)
 
     divDescription.appendChild(mediaP)
-    divDescription.appendChild(like)
+    divDescription.appendChild(likeContent)
 
     mediaContentMp4 ? mediaContentMp4.appendChild(srcMp4) : null;
     aMediaMp4 ? aMediaMp4.appendChild(mediaContentMp4) : null;
@@ -244,10 +281,11 @@ submit.addEventListener("click", (e) => {
 const imagesLightbox = document.querySelector(".lightbox-content img");
 const nextBtn = document.querySelector(".lightbox-content #next");
 const prevBtn = document.querySelector(".lightbox-content #prev");
-// const title = document.querySelector(".title");
+const title = document.querySelector('.lightbox_title');
 let i = 0;
 
-prevBtn.addEventListener("click", e => {
+//logique pour passer à l'image suivante
+nextBtn.addEventListener("click", e => {
     e.preventDefault
 
     i++
@@ -258,10 +296,12 @@ prevBtn.addEventListener("click", e => {
     }
 
     imagesLightbox.src = `assets/medias/${id}/${selectedPhotos[i].image}`
+    title.textContent = `${selectedPhotos[i].title}`
 
 })
 
-nextBtn.addEventListener("click", e => {
+//Logique pour revenir à l'image précédente
+prevBtn.addEventListener("click", e => {
     e.preventDefault
 
     i--
@@ -272,8 +312,46 @@ nextBtn.addEventListener("click", e => {
     }
 
     imagesLightbox.src = `assets/medias/${id}/${selectedPhotos[i].image}`
+    title.textContent = `${selectedPhotos[i].title}`
 
 })
+
+window.addEventListener('keydown', function (event) {
+    const modal = document.getElementById("contact_modal");
+    if (event.key == 'ArrowRight') {
+        
+            i++
+            console.log(i)
+        
+            if (i == selectedPhotos.length){
+                i = 0
+            }
+        
+            imagesLightbox.src = `assets/medias/${id}/${selectedPhotos[i].image}`
+            title.textContent = `${selectedPhotos[i].title}`
+        
+    }
+  })
+
+  window.addEventListener('keydown', function (event) {
+    const modal = document.getElementById("contact_modal");
+    if (event.key == 'ArrowLeft') {
+        
+        i--
+        console.log(i)
+    
+        if (i == -1){
+            i = selectedPhotos.length - 1
+        }
+    
+        imagesLightbox.src = `assets/medias/${id}/${selectedPhotos[i].image}`
+        title.textContent = `${selectedPhotos[i].title}`
+        
+    }
+  })
+
+
+
 
 /* ----------------------------------------
     Initialisation des fonctions
@@ -282,3 +360,4 @@ nextBtn.addEventListener("click", e => {
 //Lance les fonctions au chargement
 getPhotographerFromId()
 getMediabyId()
+

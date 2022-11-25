@@ -224,6 +224,10 @@ textarea {
     width: 100%;
 }
 
+.like_container{
+    display: flex;
+}
+
 /* -----------------------------------------
               LIGHTBOX
 ----------------------------------------- */
@@ -252,6 +256,7 @@ textarea {
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
+    align-items: center;
 }
 
 .lightbox-content button {
@@ -270,13 +275,24 @@ textarea {
 
 
 .lightbox-content img{
-    height: 100vh;
+    height: 80vh;
 }
 
 .close{
     color: #901C1C;
     position: absolute;
-    top: 0;
+    top: -370px;
+}
+
+.lightbox_title__container {
+    position: absolute;
+    bottom: 70px;
+    left: 50px;
+}
+
+.lightbox_title {
+    color: #901C1C;
+    font-size: 18px;
 }
 
 
