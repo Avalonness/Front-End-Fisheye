@@ -94,6 +94,7 @@ function photographerFactory(data) {
     Function Medias
 ---------------------------------------- */
 
+
 //Recupere les medias du photographe par l'id
 function getMediabyId(){
     fetch('https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Front-End-Fisheye/main/data/photographers.json')
@@ -101,7 +102,7 @@ function getMediabyId(){
     .then(media => setMedia(media.media));
 
     function setMedia(media) {
-        let mediaArray = []
+        let mediaArray = [];
         mediaArray.push(media)
         mediaArray[0].forEach(medias => {
             if(medias.photographerId == id) {
@@ -119,8 +120,11 @@ function getMediabyId(){
 //Insère les médias dans le DOM
 function mediaFactory(data) {
     const lightbox = document.querySelector('#lightbox');
+    const lightboxContent = document.querySelector("#lightbox-content")
     const images = document.querySelector("#lightbox-content img");
+
     const { date, likes, photographerId, image, price, title, video} = data;
+
     let media = image ? `assets/medias/${photographerId}/${image}` : null;
     let mediaMp4 = video ? `assets/medias/${photographerId}/${video}` : null;
 
@@ -138,7 +142,7 @@ function mediaFactory(data) {
             // On désactive le comportement des liens
             event.preventDefault();
 
-
+            
 
             // On ajoute l'image du lien cliqué dans la modale
             images.src = aMedia.href;
@@ -153,6 +157,7 @@ function mediaFactory(data) {
 
     let aMediaMp4 = mediaMp4 ? document.createElement('a') : null
         mediaMp4 ? aMediaMp4.setAttribute("href", mediaMp4) : null
+
 
     let mediaContentMp4 = mediaMp4 ? document.createElement('video') : null
         mediaContentMp4 ? mediaContentMp4.setAttribute("width", "350") : null
@@ -210,13 +215,14 @@ let inputEmail = "";
 let inputMessage = "";
 
 
-
+//Attribue la valeur des formulaires
 prenom.addEventListener("change", () => {inputPrenom = prenom.value})
 nom.addEventListener("change", () => {inputNom = nom.value})
 email.addEventListener("change", () => {inputEmail = email.value})
 message.addEventListener("change", () => {inputMessage = message.value})
 submit.addEventListener("click", (e) => {
 
+    //Envoie l'objet au clique
     e.preventDefault();
     let monContact = {
         monPrenom: inputPrenom,
@@ -227,6 +233,45 @@ submit.addEventListener("click", (e) => {
 
       
     console.log(monContact)
+
+})
+
+/* ----------------------------------------
+   Lightbox
+---------------------------------------- */
+
+//Gère la logique de boutons du carroussel
+const imagesLightbox = document.querySelector(".lightbox-content img");
+const nextBtn = document.querySelector(".lightbox-content #next");
+const prevBtn = document.querySelector(".lightbox-content #prev");
+// const title = document.querySelector(".title");
+let i = 0;
+
+prevBtn.addEventListener("click", e => {
+    e.preventDefault
+
+    i++
+    console.log(i)
+
+    if (i == selectedPhotos.length){
+        i = 0
+    }
+
+    imagesLightbox.src = `assets/medias/${id}/${selectedPhotos[i].image}`
+
+})
+
+nextBtn.addEventListener("click", e => {
+    e.preventDefault
+
+    i--
+    console.log(i)
+
+    if (i == -1){
+        i = selectedPhotos.length - 1
+    }
+
+    imagesLightbox.src = `assets/medias/${id}/${selectedPhotos[i].image}`
 
 })
 
