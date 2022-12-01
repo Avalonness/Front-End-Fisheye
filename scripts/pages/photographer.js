@@ -17,6 +17,9 @@ let selectedPhotos = []
 let allLike = 0
 let globalLike = 0
 
+const triMenu = document.querySelector('#photo_menu')
+const selectMediaContent = document.querySelector('.media_container')
+const srcContent = document.querySelector('.src_lightbox')
 
 
 /* ----------------------------------------
@@ -113,6 +116,7 @@ function getMediabyId(){
             }
         })
 
+        selectedPhotos.sort((a, b) => b.likes - a.likes);
         selectedPhotos.forEach(mediaFile => {
             mediaFactory(mediaFile)
         })
@@ -128,6 +132,9 @@ function mediaFactory(data) {
     const prevBt = document.querySelector("#prev");
 
     let liked = false;
+
+    
+
 
     const { date, likes, photographerId, image, price, title, video} = data;
 
@@ -147,9 +154,8 @@ function mediaFactory(data) {
         aMedia ? aMedia.addEventListener("click", event => {
             // On désactive le comportement des liens
             event.preventDefault();
-
             // On ajoute l'image du lien cliqué dans la modale
-            images.src = aMedia.href;
+            srcContent.innerHTML = `<img src="${aMedia.href}" alt="${title}">`
             document.querySelector('.lightbox_title').textContent = `${title}`
 
             // On affiche la modale
@@ -163,6 +169,19 @@ function mediaFactory(data) {
 
     let aMediaMp4 = mediaMp4 ? document.createElement('a') : null
         mediaMp4 ? aMediaMp4.setAttribute("href", mediaMp4) : null
+        aMediaMp4 ? aMediaMp4.addEventListener("click", event => {
+            // On désactive le comportement des liens
+            event.preventDefault();
+            // On ajoute l'image du lien cliqué dans la modale
+            srcContent.innerHTML = `<video width="350" height="350" controls="controls">
+            <source src="${aMediaMp4.href}" type="video/mp4">
+            </video>`
+            document.querySelector('.lightbox_title').textContent = `${title}`
+
+            // On affiche la modale
+            lightbox.classList.add("show");
+            prevBt.focus()
+        }) : null
 
 
     let mediaContentMp4 = mediaMp4 ? document.createElement('video') : null
@@ -188,7 +207,6 @@ function mediaFactory(data) {
         like.textContent = `${likes}`;
         //Ajoute chaque like dans un tableau
         allLike = allLike + likes
-        console.log(allLike)
         document.querySelector('.likeNumber').textContent = `${allLike}♥`
         //logique des buttons like
         like.addEventListener('click', e => {
@@ -295,7 +313,9 @@ nextBtn.addEventListener("click", e => {
         i = 0
     }
 
-    imagesLightbox.src = `assets/medias/${id}/${selectedPhotos[i].image}`
+    selectedPhotos[i].image ? srcContent.innerHTML = `<img src="assets/medias/${id}/${selectedPhotos[i].image}" alt="${title}">` : srcContent.innerHTML = `<video width="350" height="350" controls="controls">
+    <source src="assets/medias/${id}/${selectedPhotos[i].video}" type="video/mp4">
+    </video>`;
     title.textContent = `${selectedPhotos[i].title}`
 
 })
@@ -311,11 +331,15 @@ prevBtn.addEventListener("click", e => {
         i = selectedPhotos.length - 1
     }
 
-    imagesLightbox.src = `assets/medias/${id}/${selectedPhotos[i].image}`
+    selectedPhotos[i].image ? srcContent.innerHTML = `<img src="assets/medias/${id}/${selectedPhotos[i].image}" alt="${title}">` : srcContent.innerHTML = `<video width="350" height="350" controls="controls">
+    <source src="assets/medias/${id}/${selectedPhotos[i].video}" type="video/mp4">
+    </video>`;
     title.textContent = `${selectedPhotos[i].title}`
 
 })
 
+
+//Gère l'accesibilité
 window.addEventListener('keydown', function (event) {
     const modal = document.getElementById("contact_modal");
     if (event.key == 'ArrowRight') {
@@ -350,6 +374,45 @@ window.addEventListener('keydown', function (event) {
     }
   })
 
+/* ----------------------------------------
+    GESTION DE L'OPTION DE TRI
+---------------------------------------- */
+// Au changement de la valeur de tri : 
+triMenu.addEventListener('change', e => {
+    e.preventDefault
+
+        //Gère le tri des medias
+        switch(triMenu.value){
+            case 'popularite':
+                selectedPhotos.sort((a, b) => b.likes - a.likes);
+                console.log("Tu es populaire !")
+                console.table(selectedPhotos)
+                break;
+            case 'date':
+                selectedPhotos.sort((a, b) => {
+                    return new Date(a.date) - new Date(b.date)
+                  })
+                console.log("Ton agenda est à jour !")
+                console.table(selectedPhotos)
+                break;
+            case 'titre':
+                selectedPhotos.sort(function (a, b) {
+                    return a.title.localeCompare(b.title);
+                  });
+                console.log("Tu es bien ordonné !")
+                console.table(selectedPhotos)
+                break;
+            default:
+                console.log(`Ohla la la la !`);
+    
+        }
+
+    selectMediaContent.innerHTML = "";
+    selectedPhotos.forEach(mediaFile => {
+        mediaFactory(mediaFile)
+    })
+
+})
 
 
 
@@ -360,4 +423,9 @@ window.addEventListener('keydown', function (event) {
 //Lance les fonctions au chargement
 getPhotographerFromId()
 getMediabyId()
+
+console.log(triMenu.value)
+
+
+
 

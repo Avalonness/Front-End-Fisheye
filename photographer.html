@@ -1,83 +1,91 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <title>Fisheye - photographe </title>
-  </head>
-  <body>
-    <header  aria-label="En-tête du site">
-      <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page"/></a>
-    </header>
 
-<!-- MAIN CONTENT PAGE -->
-    <main id="main">
-      <div class="photograph-header">
-        <div class="photograph_header_left"></div>
-        <button class="contact_button" onclick="displayModal()" aria-label="Bouton pour ouvrir le formulaire de contact.">Contactez-moi</button>
-        <div class="photograph_header_right"></div>
-      </div>
-      <div class="photo_menu_container">
-        <p>Trier Par :</p>
-        <select name="photo_menu" id="photo_menu">
-          <option selected>Popularité</option>
-          <option >Date</option>
-          <option>Titre</option>
-        </select>
-        <div class="tarif_container"></div>
-      </div>
-      <div class="media_container"></div>
-    </main>
+<head>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+  <title>Fisheye - photographe </title>
+</head>
 
-<!-- MODAL -->
-    <div id="contact_modal" role="dialog" aria-labelledby="close_modal" >
-			<div class="modal">
-				<header>
-          <div class="modal_title">
-            <h2>Contactez-moi</h2>
-            <p class="contact_photograph"></p>
-          </div>
-          <button class="close_modal" onclick="closeModal()" aria-label="Boutton afin de fermer le formulaure de contact" type="button" id="close_modal"><img src="assets/icons/close.svg" alt="Croix"/></button>
-        </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input id="firstname" aria-label="Champ pour entrer votre prénom" required/>
-            <label>Nom</label>
-						<input id="lastname" aria-label="Champ pour entrer votre nom" required/>
-            <label>Email</label>
-						<input id="email" type="email" aria-label="Champ pour entrer votre email" required/>
-            <label>Votre message</label>
-						<textarea id="message" name="message"
-            rows="10" placeholder="Votre message ici !" aria-label="Champ pour entrer votre message" required>
+<body>
+  <header aria-label="En-tête du site">
+    <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" /></a>
+  </header>
+
+  <!-- MAIN CONTENT PAGE -->
+  <main id="main">
+    <div class="photograph-header">
+      <div class="photograph_header_left"></div>
+      <button class="contact_button" onclick="displayModal()"
+        aria-label="Bouton pour ouvrir le formulaire de contact.">Contactez-moi</button>
+      <div class="photograph_header_right"></div>
+    </div>
+    <div class="photo_menu_container">
+      <p>Trier Par :</p>
+      <select name="photo_menu" id="photo_menu">
+        <option value="popularite" selected>Popularité</option>
+        <option value="date">Date</option>
+        <option value="titre">Titre</option>
+      </select>
+      <div class="tarif_container"></div>
+    </div>
+    <div class="media_container">
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div id="contact_modal" role="dialog" aria-labelledby="close_modal">
+    <div class="modal">
+      <header>
+        <div class="modal_title">
+          <h2>Contactez-moi</h2>
+          <p class="contact_photograph"></p>
+        </div>
+        <button class="close_modal" onclick="closeModal()" aria-label="Boutton afin de fermer le formulaure de contact"
+          type="button" id="close_modal"><img src="assets/icons/close.svg" alt="Croix" /></button>
+      </header>
+      <form>
+        <div>
+          <label>Prénom</label>
+          <input id="firstname" aria-label="Champ pour entrer votre prénom" required />
+          <label>Nom</label>
+          <input id="lastname" aria-label="Champ pour entrer votre nom" required />
+          <label>Email</label>
+          <input id="email" type="email" aria-label="Champ pour entrer votre email" required />
+          <label>Votre message</label>
+          <textarea id="message" name="message" rows="10" placeholder="Votre message ici !"
+            aria-label="Champ pour entrer votre message" required>
           </textarea>
-            
-					</div>
-          <button class="contact_button" id="submit_button" aria-label="Boutton pour envoyer votre message">Envoyer</button>
-				</form>
-			</div>
-		</div>
 
-<!-- LIGHTBOX -->    
+        </div>
+        <button class="contact_button" id="submit_button"
+          aria-label="Boutton pour envoyer votre message">Envoyer</button>
+      </form>
+    </div>
+  </div>
 
-    <div id="lightbox" class="lightbox">
-      <div class="lightbox-content" id="lightbox-content">
-          <button id="prev" aria-label="Boutton permettant de retourner à la photo précédente">&lt;</button>
-          <img src="" alt="">
-          <div class="lightbox__right">
-            <button class="close">&times;</button>
-            <button id="next" aria-label="Boutton permettant de passer à la photo suivante">&gt;</button>
-          </div>
-          <div class="lightbox_title__container">
-            <p class="lightbox_title"></p>
-          </div>
+  <!-- LIGHTBOX -->
+
+  <div id="lightbox" class="lightbox">
+    <div class="lightbox-content" id="lightbox-content">
+      <button id="prev" aria-label="Boutton permettant de retourner à la photo précédente">&lt;</button>
+      <div class="src_lightbox">
+      </div>
+      <div class="lightbox__right">
+        <button class="close">&times;</button>
+        <button id="next" aria-label="Boutton permettant de passer à la photo suivante">&gt;</button>
+      </div>
+      <div class="lightbox_title__container">
+        <p class="lightbox_title"></p>
       </div>
     </div>
+  </div>
 
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
-    <script src="/scripts/utils/lightbox.js" defer></script>
-  </body>
+  <script src="/scripts/pages/photographer.js"></script>
+  <script src="/scripts/utils/contactForm.js"></script>
+  <script src="/scripts/utils/lightbox.js" defer></script>
+</body>
+
 </html>
