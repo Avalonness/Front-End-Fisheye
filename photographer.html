@@ -25,6 +25,7 @@
     <div class="photo_menu_container">
       <p>Trier Par :</p>
       <select name="photo_menu" id="photo_menu">
+        <label for="tri"></label>
         <option value="popularite" selected>Popularité</option>
         <option value="date">Date</option>
         <option value="titre">Titre</option>
@@ -48,13 +49,13 @@
       </header>
       <form>
         <div>
-          <label>Prénom</label>
-          <input id="firstname" aria-label="Champ pour entrer votre prénom" required />
-          <label>Nom</label>
-          <input id="lastname" aria-label="Champ pour entrer votre nom" required />
-          <label>Email</label>
-          <input id="email" type="email" aria-label="Champ pour entrer votre email" required />
-          <label>Votre message</label>
+          <label for="firstname">Prénom</label>
+          <input id="firstname" aria-label="Champ pour entrer votre prénom" name="firstname" required />
+          <label for="lastname">Nom</label>
+          <input id="lastname" aria-label="Champ pour entrer votre nom" name="lastname" required />
+          <label for="email">Email</label>
+          <input id="email" type="email" aria-label="Champ pour entrer votre email" name="email" required />
+          <label for="message">Votre message</label>
           <textarea id="message" name="message" rows="10" placeholder="Votre message ici !"
             aria-label="Champ pour entrer votre message" required>
           </textarea>
